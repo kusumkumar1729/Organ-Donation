@@ -1,30 +1,7 @@
+# Organ Donation dApp
 
-<a name="readme-top"></a>
-
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-<!-- [![MIT License][license-shield]][license-url] -->
-
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/rahulsabinkar/organ-donation-platform">
-    <img src="app/images/../src/images/organ-donation-logo.svg" alt="Logo" width="80" height="80">
-  </a>
-
-<h3 align="center">Organ Donation Platform</h3>
-
-  <p align="center">
-    A dApp platform connecting organ donor and acceptor via ethereum blockchain.
-    <br />
-    <!-- <a href="https://github.com/rahulsabinkar/organ-donation-platform"><strong>Explore the docs »</strong></a>
-    <br />
-    <br /> -->
-    <!-- <a href="https://github.com/rahulsabinkar/organ-donation-platform">View Demo</a> -->
-  </p>
-</div>
+## Overview
+The Organ Donation dApp is a decentralized application built on the Ethereum blockchain to connect organ donors and recipients securely and transparently. It aims to streamline the organ donation process by eliminating intermediaries, reducing paperwork, and ensuring trust through smart contracts. The platform allows users to register as donors or recipients, match based on medical criteria, and manage organ donation records with privacy and security.
 
 ## Screenshots
 
@@ -155,26 +132,3 @@ Now that everything is set-up, you can run the server.
 2. Open a browser and go to http://localhost:8080/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Team Members
-
-* [Rahul Sabinkar](https://github.com/RahulSabinkar)
-* [Sai Manikanta Teja](https://github.com/SaiManikantaTeja)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/rahulsabinkar/organ-donation-platform.svg?style=for-the-badge
-[contributors-url]: https://github.com/rahulsabinkar/organ-donation-platform/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/rahulsabinkar/organ-donation-platform.svg?style=for-the-badge
-[forks-url]: https://github.com/rahulsabinkar/organ-donation-platform/network/members
-[stars-shield]: https://img.shields.io/github/stars/rahulsabinkar/organ-donation-platform.svg?style=for-the-badge
-[stars-url]: https://github.com/rahulsabinkar/organ-donation-platform/stargazers
-[issues-shield]: https://img.shields.io/github/issues/rahulsabinkar/organ-donation-platform.svg?style=for-the-badge
-[issues-url]: https://github.com/rahulsabinkar/organ-donation-platform/issues
-[node-shield-url]: https://img.shields.io/badge/node.js-brightgreen?style=for-the-badge&logo=nextdotjs&logoColor=white
-[node-url]: https://nodejs.org/
-[solidity-shield-url]: https://img.shields.io/badge/solidity-blue?style=for-the-badge&logo=solidity&logoColor=white
-[solidity-url]: https://soliditylang.org/
