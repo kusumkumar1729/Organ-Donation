@@ -11,67 +11,308 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/style-home.css">
+    <link rel="stylesheet" href="../css/contact.css">
     <link rel="stylesheet" href="../css/fontawesome-all.css">
-    <link rel="stylesheet" href="../main.js">
-    <link rel="icon" href="images/organ-donation-logo-new.svg">
-
+    <link rel="icon" href="images/organlogo.jpeg">
     <title>Contact - Organ Donation Platform</title>
+
+    <style>
+        /* contact.css */
+
+/* Reset and Base Styles */
+* { 
+    padding: 0; 
+    margin: 0; 
+    text-decoration: none; 
+    list-style: none; 
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Top Bar */
+.top-bar {
+    background: #f8f9fa;
+    color: #4b5563;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.top-bar span {
+    margin-right: 20px;
+}
+
+.top-bar i {
+    margin-right: 8px;
+}
+
+#logo {
+    height: 50px;
+    transition: transform 0.3s ease;
+}
+
+#logo:hover {
+    transform: scale(1.1);
+}
+
+header {
+    background: #ffffff;
+    padding: 20px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+    position: relative;
+}
+
+nav ul li a {
+    color: #1e293b;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 0;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    color: #3b82f6;
+    border-bottom: 2px solid #3b82f6;
+}
+
+/* Main Content */
+main {
+    padding: 50px 0;
+}
+
+/* Contact Section */
+.content-box.contact {
+    text-align: center;
+    padding: 40px;
+    background-color: #2ecc71; /* Vibrant green background */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 20px 0;
+    color: #ffffff; /* White text */
+}
+
+.content-box.contact:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-box.contact img {
+    width: 60px;
+    margin-bottom: 20px;
+    filter: brightness(0) invert(1); /* White icon */
+}
+
+.content-box.contact h3 {
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.content-box.contact p {
+    font-size: 18px;
+}
+
+.content-box.contact p span {
+    display: block;
+    margin: 10px 0;
+}
+
+.content-box.contact a {
+    color: #f1c40f; /* Bright yellow for email link */
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.content-box.contact a:hover {
+    color: #f39c12; /* Darker yellow on hover */
+    text-decoration: underline;
+}
+
+/* Developer Section (Right Side Box) */
+.developer-section-box {
+    background-color: #ecf0f1; /* Light gray background */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.developer-section-box h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.developer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.developer-box {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.developer-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.developer-box h3 {
+    font-size: 20px;
+    color: #8e44ad; /* Purple for names */
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Footer */
+footer {
+    background-color: #2c3e50; /* Dark blue-gray */
+    padding: 40px 0;
+    color: #fff;
+    text-align: center;
+}
+
+#copyright p {
+    font-size: 14px;
+    color: #bdc3c7; /* Light gray for copyright */
+    margin: 0;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .content-box.contact, .developer-section-box {
+        margin: 20px 0;
+    }
+
+    .developer-box {
+        margin: 10px 0;
+    }
+}
+    </style>
 </head>
 <body>
     <header>
         <div class="container">
             <div class="row">
-                    
                 <nav>
                     <a href="homepage.html"><img id="logo" src="../images/organ-donation-platform-logo-1.svg" alt="Organ Donation Platform"></a>
                     <ul>
-                        <li><a href="homepage.html">Home</a></li>
-                        <li><a href="about-us.html">About Us</a></li>
-                        <li><a class="active" href="">Contact</a></li>
-                        <li><a href="awareness.html">Awareness</a></li>
-                        <li><a href="donor-pledge.html">Pledge</a></li>
+                        <li><a class="active" href="/index.html">Home</a></li>
+                        <li><a href="/about-us.html">About Us</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                        <li><a href="/awareness.html">Awareness</a></li>
+                        <li><a href="/login-admin.html">Admin</a></li>
+                        <li><a href="/login-user.html">User</a></li>
                     </ul>
                 </nav>
-              
             </div> <!-- end of row -->
-        </div> <!-- end of conatiner -->
+        </div> <!-- end of container -->
     </header>
 
     <main>
         <div class="container">
-            <div class="row center-box">
-                
-                <div class="col-lg-4">
-                   <div class="content-box contact">
-                    <img src="../images/mail-icon.svg" alt="">
-                        <h3>Have Questions?</h3>    
-                        <p>Get in touch now !<br>organdonationplatform@gmail.com</p>
-                   </div>
+            <div class="row">
+                <!-- Contact Section on the Left -->
+                <div class="col-lg-6">
+                    <div class="content-box contact">
+                        <img src="../images/mail-icon.svg" alt="Email Icon">
+                        <h3>Contact Us</h3>    
+                        <p>
+                            Have questions? Reach out to us!<br>
+                            <span>Email: <a href="mailto:lifechain.saviour@gmail.com" style="color: white;">lifechain.saviour@gmail.com</a></span><br>
+                            <span>Phone: +91 8886134562</span><br>
+                        </p>
+                    </div>
                 </div>
-                
-            </div> <!-- end of row -->
-        </div> <!-- end of conatiner -->
 
-       
-    </main>
-
-
-    <footer>
-        <div class="container">
-            <div class="row center-box">
-                <div class="col-4">
-                    <div class="footer-logo"><img src="../images/organ-donation-platform-logo-white.svg" alt=""></div>
-                </div>    
-        
-                <div class="col-12">
-                    <div id="copyright">
-                        <p>Copyright © 2022 Organ Donation Platform - All rights reserved</p>
+                <!-- Developer Details Section on the Right -->
+                <div class="col-lg-6">
+                    <div class="developer-section-box">
+                        <h2>Meet Our Developers</h2>
+                        <div class="developer-list">
+                            <div class="developer-box">
+                                <h3>S. Mounika</h3>
+                            </div>
+                            <div class="developer-box">
+                                <h3>A. Dharma Teja</h3>
+                            </div>
+                            <div class="developer-box">
+                                <h3>B. Sai Amrutha</h3>
+                            </div>
+                            <div class="developer-box">
+                                <h3>S. Bangarraju</h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div> <!-- end of row -->
-        </div> <!-- end of conatiner -->        
+        </div> <!-- end of container -->
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="row center-box">  
+                <div class="col-12">
+                    <div id="copyright">
+                        <p>Copyright © 2025 Organ Donation Platform - All rights reserved</p>
+                    </div>
+                </div>
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->        
     </footer>
-    
 </body>
 </html>

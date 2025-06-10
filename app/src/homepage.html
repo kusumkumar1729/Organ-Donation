@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/fontawesome-all.css" rel="stylesheet">
+    <link rel="icon" href="images/organ-donation-logo-new.svg">
+    <title>Dashboard - Organ Donation Platform</title>
+</head>
+<body>
+    <!-- Start of Navigation -->      
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav>
+                        <a href="index.html"><img class="nav-logo" src="./images/organ-donation-platform-logo-1.svg" alt="Organ Donation Platform"></a>
+                        <ul>
+                            <li>
+                                <button class="btn btn-sm btn-primary homepage" onclick="logout()">
+                                    Logout
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- End of Navigation -->
+
+    <!-- Main content unchanged -->
+    <main>    
+        <div class="container">
+            <div class="row center-box">              
+                <div class="col-sm-3">
+                    <div class="left-content width">
+                        <a href="donor-registration.html"><button class="btn btn-lg btn-primary custom">Register Donor</button></a><br>
+                        <a href="view-donors.html"><button class="btn btn-lg btn-primary custom">View Donors</button></a><br>
+                        <a href="verify-pledges.html"><button class="btn btn-lg btn-primary custom">Verify Pledges</button></a>
+                    </div>
+                </div>     
+                <div class="col-sm-3">
+                    <div class="right-content width">                                
+                        <a href="patient-registration.html"><button class="btn btn-lg btn-primary custom">Register Patient</button></a><br>
+                        <a href="view-patients.html"><button class="btn btn-lg btn-primary custom">View Patients</button></a><br>
+                        <a href="view-pledges.html"><button class="btn btn-lg btn-primary custom">View Pledges</button></a>
+                    </div>
+                </div>                    
+            </div>  
+            <br>    
+            <div class="container">
+                <div class="row center-box">
+                    <div class="col-md-4">
+                        <div class="transplant-btn" id="size">
+                            <a href="transplant-matching.html"><button class="btn btn-lg btn-primary custom custom-tm">Transplant Match</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="container">
+                <div class="row center-box">
+                    <div class="col-md-4 container-1">                            
+                        <div class="search">
+                            <h2>Search Donor</h2>
+                            <p><input type="text" id="inputDonorMedicalID" placeholder="Donor Medical ID"></p>
+                            <div class="details">
+                                <p id="getDonorFullName"></p><p id="getDonorAge"></p><p id="getDonorGender"></p>
+                                <p id="getDonorBloodType"></p><p id="getDonorOrgan"></p><p id="getDonorWeight"></p>
+                                <p id="getDonorHeight"></p><p id="searchDonorCheck"></p>
+                            </div>
+                            <button type="submit" class="btn btn-primary search" onclick="App.search('Donor')">Search</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 container-2">
+                        <div class="search">
+                            <h2>Search Patient</h2>
+                            <p><input type="text" id="inputPatientMedicalID" placeholder="Patient Medical ID"></p>
+                            <div class="details">
+                                <p id="getPatientFullName"></p><p id="getPatientAge"></p><p id="getPatientGender"></p>
+                                <p id="getPatientBloodType"></p><p id="getPatientOrgan"></p><p id="getPatientWeight"></p>
+                                <p id="getPatientHeight"></p><p id="searchPatientCheck"></p>
+                            </div>
+                            <button type="submit" class="btn btn-primary search" onclick="App.search('Patient')">Search</button>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </main>
+
+        <footer></footer>
+
+        <!-- Scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/web3@1.7.4/dist/web3.min.js"></script>
+        <script>
+            // Only run checkAuth manually or after login, not on initial load
+            function checkAuth() {
+                fetch('http://localhost:5000/api/auth/verify', {
+                    method: 'GET',
+                    credentials: 'include'
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        console.log('Not authenticated, redirecting to homepage');
+                        window.location.href = '/homepage.html'; // Redirect to homepage, not login.html
+                    } else {
+                        return response.json().then(data => {
+                            console.log('Authenticated user:', data.userId);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error verifying auth:', error);
+                    window.location.href = '/homepage.html'; // Redirect to homepage
+                });
+            }
+
+            function logout() {
+                fetch('http://localhost:5000/api/auth/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                })
+                .then(() => {
+                    window.location.href = '/index.html'; // Redirect to homepage after logout
+                })
+                .catch(err => {
+                    console.error('Logout failed:', err);
+                    window.location.href = '/index.html';
+                });
+            }
+
+            // Only call checkAuth if explicitly needed, not on page load
+            // checkAuth(); // Remove this automatic call
+        </script>
+        <script src="main.js"></script>
+    </body>
+</html>

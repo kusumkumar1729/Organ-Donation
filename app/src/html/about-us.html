@@ -2,103 +2,247 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="">
-    <meta name="description" content="Organ Donation Platform using Blockchain">
+    <meta name="keywords" content="Organ Donation, Blockchain, Healthcare">
+    <meta name="description" content="Organ Donation Platform using Blockchain - About Us">
+    
+    <title>About Us - Organ Donation Platform</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/style-home.css">
     <link rel="stylesheet" href="../css/fontawesome-all.css">
-    <link rel="stylesheet" href="../main.js">
-    <link rel="icon" href="images/organ-donation-logo-new.svg">
-
-    <title>About Us - Organ Donation Platform</title>
+    <link rel="stylesheet" href="../css/about.css">
+    <link rel="icon" href="../images/organlogo.jpeg">
 </head>
+
+<style>
+/* General Styles */
+* { 
+    padding: 0; 
+    margin: 0; 
+    text-decoration: none; 
+    list-style: none; 
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Top Bar */
+.top-bar {
+    background: #f8f9fa;
+    color: #4b5563;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.top-bar span {
+    margin-right: 20px;
+}
+
+.top-bar i {
+    margin-right: 8px;
+}
+
+#logo {
+    height: 50px;
+    transition: transform 0.3s ease;
+}
+
+#logo:hover {
+    transform: scale(1.1);
+}
+
+header {
+    background: #ffffff;
+    padding: 20px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+    position: relative;
+}
+
+nav ul li a {
+    color: #1e293b;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 0;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    color: #3b82f6;
+    border-bottom: 2px solid #3b82f6;
+}
+
+/* Main Content */
+main {
+    padding: 50px 0;
+}
+/* About Section */
+.about {
+    text-align: center;
+    padding: 60px 0;
+}
+
+.about h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #222;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.about .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90%;
+    margin: auto;
+}
+
+.about p {
+    font-size: 20px;
+    width: 75%;
+    line-height: 1.8;
+    color: #444;
+    animation: slideUp 1s ease-in-out;
+}
+
+/* Box Styles */
+.row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    gap: 30px;
+    width: 100vw;
+    margin:20px 50px 40px 70px;
+}
+
+.col-lg-6 {
+    width: 40%;
+    background: #ffffff;
+    padding: 25px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.col-lg-6:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.about-image {
+    width: 100%;
+    border-radius: 12px;
+}
+
+/* Footer */
+footer {
+    background: #222;
+    color: #fff;
+    text-align: center;
+    padding: 25px 0;
+    margin-top: 50px;
+    font-size: 16px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+
+</style>
 <body>
     <header>
         <div class="container">
-            <div class="row">
-                    
-                <nav>
-                    <a href="homepage.html"><img id="logo" src="../images/organ-donation-platform-logo-1.svg" alt="Organ Donation Platform"></a>
-                    <ul>
-                        <li><a href="homepage.html">Home</a></li>
-                        <li><a class="active" href="">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="awareness.html">Awareness</a></li>
-                        <li><a href="donor-pledge.html">Pledge</a></li>
-                    </ul>
-                </nav>
-              
-            </div> <!-- end of row -->
-        </div> <!-- end of conatiner -->
+            <nav>
+                <a href="homepage.html"><img id="logo" src="../images/organ-donation-platform-logo-1.svg" alt="Organ Donation Platform"></a>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a class="active" href="about-us.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="awareness.html">Awareness</a></li>
+                    <li><a href="login-admin.html">Admin</a></li>
+                    <li><a href="login-user.html">User</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
-       
-
-        
+        <section class="about">
             <div class="container">
-                <div class="row center-box">
-                    
-                    <div class="col-lg-4">
-                        <div class="content-box profile">
-                            <h1 id="heading">Team</h1>
-                            <img src="../images/Rahul Sabinkar.png" alt="">
-                            <h3>Rahul Sabinkar</h3><p>Team Leader</p>
-                        </div>
-                    </div>
-                    
-                </div> <!-- end of row -->
-            </div> <!-- end of conatiner -->
-
-            <div class="container">
+                <h1>About Us</h1>
+                <p>Our Organ Donation Platform leverages cutting-edge blockchain technology to ensure a transparent, secure, and efficient organ donation process. Our mission is to eliminate organ shortages, reduce transplant waiting times, and prevent unethical practices such as organ trafficking.</p>
+                
                 <div class="row">
-                    <div class="col-lg-4">
-                        <div class="content-box profile">
-                            <img src="../images/Sai Manikanta.png" alt="">
-                            <h3>Sai Manikanta Teja</h3><p>Member</p>
-                        </div>
+                    <div class="col-lg-6">
+                        <h2>Why Choose Us?</h2>
+                        <ul>
+                            <li>Blockchain technology ensures security and transparency</li>
+                            <li>Automated donor-recipient matching</li>
+                            <li>Eliminates fraud and illegal organ trade</li>
+                            <li>Instant alerts for available organs</li>
+                            <li>Seamless integration with medical databases</li>
+                        </ul>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="content-box profile">
-                            <img src="../images/Boini.png" alt="">
-                            <h3>Boini Sai Kumar</h3><p>Member</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="content-box profile">
-                            <img src="../images/Gummadi.png" alt="">
-                            <h3>Gummadi Sai Kumar</h3><p>Member</p>
-                        </div>
-                    </div>
-                </div>    
+                   
+                </div>
+                
+                <h2>Our Vision</h2>
+                <p>We aim to create a world where no life is lost due to organ shortages. By using technology to bridge the gap between donors and recipients, we ensure that every donation counts and reaches the right patient at the right time.</p>
+                
+                <h2>How It Works</h2>
+                <p>Our platform securely registers organ donors and recipients. When an organ becomes available, our system matches it to the most suitable recipient based on medical urgency, compatibility, and ethical guidelines.</p>
+                
+                <h2>Our Impact</h2>
+                <p>Since our launch, we have helped thousands of patients receive life-saving transplants. With a growing database of donors and recipients, we continue to make a difference every day, ensuring a fair and transparent organ allocation system.</p>
             </div>
- 
-
-       
+        </section>
     </main>
-
 
     <footer>
         <div class="container">
             <div class="row center-box">
                 <div class="col-4">
                     <div class="footer-logo"><img src="../images/organ-donation-platform-logo-white.svg" alt=""></div>
-                </div>    
-        
-                <div class="col-12">
-                    <div id="copyright">
-                        <p>Copyright © 2022 Organ Donation Platform - All rights reserved</p>
-                    </div>
                 </div>
-            </div> <!-- end of row -->
-        </div> <!-- end of conatiner -->        
+                <div class="col-12">
+                    <p>Copyright &copy; 2024 Organ Donation Platform - All rights reserved.</p>
+                </div>
+            </div>
+        </div>
     </footer>
-    
 </body>
 </html>

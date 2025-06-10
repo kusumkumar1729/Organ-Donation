@@ -1,9 +1,11 @@
 // Import Web3 JS library
-const Web3 = require('web3');
-const web3 = new Web3("HTTP://127.0.0.1:7545");
+import Web3 from 'web3';
+
+const web3 = new Web3("http://127.0.0.1:7545");
 
 // Import the ABI definition of the DemoContract
 const artifact = require('../../build/contracts/DonorContract.json');
+
 
 // const netid = await web3.eth.net.getId()
 const deployedContract = artifact.networks[5777];
@@ -24,13 +26,16 @@ function generateTableHead(table, data) {
 function generateTable(table, data) {
     for (let element of data) {
         let row = table.insertRow();
-        for (key in element) {
-        let cell = row.insertCell();
-        let text = document.createTextNode(element[key]);
-        cell.appendChild(text);
+        for (let key in element) {  // Use 'let key' to define the key variable
+            if (element.hasOwnProperty(key)) {  // Ensure key is from the current object
+                let cell = row.insertCell();
+                let text = document.createTextNode(element[key]);
+                cell.appendChild(text);
+            }
         }
     }
 }
+
 
 let table = document.querySelector("table");
 
@@ -207,6 +212,9 @@ const App = {
                     warning.style.opacity = "0";
                     setTimeout(function(){ warning.style.display = "none"; }, 1200);
                 }, 5000);
+                setTimeout(function(){
+                    window.location.href='success.html';
+                }, 5000);
             }
             else {
                 showWarning(user, "Medical ID already exists!", "#f44336");
@@ -228,30 +236,57 @@ const App = {
         const gas = await this.contractInstance.methods.setPledge(fullname, age, gender, medical_id, blood_type, organ, weight, height).estimateGas({
             from: this.accounts[0]
         });
-        await this.contractInstance.methods.setPledge(fullname, age, gender, medical_id, blood_type, organ, weight, height
-        ).send({
-            from: this.accounts[0], gas: Math.max(gas, MIN_GAS)
-        })
+    
+        // Convert gas to a number if it's a BigInt
+        const gasAmount = typeof gas === 'bigint' ? Number(gas) : gas;
+        // Convert MIN_GAS to a number if it's a BigInt
+        const minGasAmount = typeof MIN_GAS === 'bigint' ? Number(MIN_GAS) : MIN_GAS;
+    
+        // Safeguard: Ensure gasAmount and minGasAmount are numbers before passing to Math.max
+        await this.contractInstance.methods.setPledge(fullname, age, gender, medical_id, blood_type, organ, weight, height)
+        .send({
+            from: this.accounts[0], gas: Math.max(Number(gasAmount), Number(minGasAmount)) // Ensure both values are numbers
+        });
     },
+    
+    
+    
 
     setDonor: async function(fullname, age, gender, medical_id, blood_type, organ, weight, height) {
+        // Estimate the gas for the transaction
         const gas = await this.contractInstance.methods.setDonors(fullname, age, gender, medical_id, blood_type, organ, weight, height).estimateGas({
             from: this.accounts[0]
         });
-        await this.contractInstance.methods.setDonors(fullname, age, gender, medical_id, blood_type, organ, weight, height
-        ).send({
-            from: this.accounts[0], gas: Math.max(gas, MIN_GAS)
-        })
+    
+        // Ensure gas is a Number before using Math.max
+        const gasLimit = Math.max(Number(gas), MIN_GAS);  // Convert BigInt gas to Number if necessary
+    
+        // Send the transaction with the correct gas limit
+        await this.contractInstance.methods.setDonors(fullname, age, gender, medical_id, blood_type, organ, weight, height)
+            .send({
+                from: this.accounts[0], gas: gasLimit
+            });
     },
+    
+
+   
 
     setPatient: async function(fullname, age, gender, medical_id, blood_type, organ, weight, height) {
-        const gas = await this.contractInstance.methods.setPatients(fullname, age, gender, medical_id, blood_type, organ, weight, height).estimateGas({
-            from: this.accounts[0]
-        });
-        await this.contractInstance.methods.setPatients(fullname, age, gender, medical_id, blood_type, organ, weight, height).send({
-            from: this.accounts[0], gas: Math.max(gas, MIN_GAS)
-        });
+        // Estimate gas for the transaction
+        const gas = await this.contractInstance.methods.setPatients(fullname, age, gender, medical_id, blood_type, organ, weight, height)
+            .estimateGas({ from: this.accounts[0] });
+    
+        // Convert gas to a regular Number if it's a BigInt
+        const gasLimit = Number(gas);
+    
+        // Send the transaction with the estimated or minimum gas
+        await this.contractInstance.methods.setPatients(fullname, age, gender, medical_id, blood_type, organ, weight, height)
+            .send({
+                from: this.accounts[0], 
+                gas: Math.max(gasLimit, MIN_GAS) // Use the larger of the estimated gas and MIN_GAS
+            });
     },
+    
 
     search: async function(user) {
         console.log(user);
@@ -423,88 +458,111 @@ const App = {
             contractAddress
         );
         document.getElementById("transplantTable").innerHTML = null;
-        var patientCount = await this.contractInstance.methods.getCountOfPatients().call();
-        var donorCount = await this.contractInstance.methods.getCountOfDonors().call();
-        var patientIDs = await this.contractInstance.methods.getAllPatientIDs().call();
-        var donorIDs = [''];
-        await this.contractInstance.methods.getAllDonorIDs().call().then(function(result){
-            for (let i=0; i<donorCount; i++) {
-                donorIDs[i] = result[i];
+    
+        try {
+            let patientCount = await this.contractInstance.methods.getCountOfPatients().call();
+            let donorCount = await this.contractInstance.methods.getCountOfDonors().call();
+            let patientIDs = await this.contractInstance.methods.getAllPatientIDs().call();
+            
+            let donorIDs = await this.contractInstance.methods.getAllDonorIDs().call();
+            let donor = [];
+            
+            // Fetch all donor information
+            for (let i = 0; i < donorCount; i++) {
+                let donorData = await this.contractInstance.methods.getDonor(donorIDs[i]).call();
+                let organsArr = donorData[4] || []; // default to empty array if no organs
+                let donorObj = {
+                    ID: donorIDs[i],
+                    name: donorData[0],
+                    bloodtype: donorData[3],
+                    organs: organsArr,
+                    organcount: organsArr.length
+                };
+                donor.push(donorObj);
             }
-        });
-
-        let donor = [];
-        for (let i=0; i<donorCount; i++) {
-            await this.contractInstance.methods.getDonor(donorIDs[i]).call().then(function(result){
-                let organsArr = [];
-                let temp = result[4];
-                for (let o=0; o<temp.length; o++) {
-                    organsArr[o] = temp[o];
-                }
-                donorObj = { ID: donorIDs[i], name: result[0], bloodtype: result[3], organs: organsArr, organcount: organsArr.length };
-                donor[i] = donorObj;
-            });
-        }
-        console.log(donor);
-
-        let match;
-        console.log("Patient Count: " + patientCount);
-        console.log("Donor Count: " + donorCount);
-
-        let initialTableGeneration = true;
-
-        for (var i=0; i<patientCount; i++) {
-            var patientname;
-            var patientbloodtype;            
-            var patientorgans;
-            await this.contractInstance.methods.getPatient(patientIDs[i]).call().then(function(result){
-                patientname = result[0];
-                patientbloodtype=result[3];
-                patientorgans=result[4];
-            });
-            console.log("Checking patient: "+patientname);
-            for (var poi=0; poi < patientorgans.length; poi++) {
-                console.log("Checking patient organ: "+patientorgans[poi]);
-                for (var j=0; j<donorCount; j++) {
-                    let matchedOrgan = false;
-                    console.log("Checking donor: "+donor[j].name);
-                    console.log("Organ count: "+donor[j].organcount);
-                    for (let doi=0; doi < donor[j].organcount; doi++) {
-                        console.log("Checking donor organ: "+donor[j].organs[doi])
-                        if (patientbloodtype==donor[j].bloodtype && patientorgans[poi]==donor[j].organs[doi]) {
-                            matchedOrgan = true;
-                            console.log("Matched: "+patientname+" "+patientorgans[poi]+"<->"+donor[j].name+" "+donor[j].organs[doi]);
-                            match = [
-                                { "Patient Name": patientname, "Patient Organ": patientorgans[poi], "Patient Medical ID": patientIDs[i],"": "↔️", "Donor Medical ID": donorIDs[j], "Donor Organ": donor[j].organs[doi], "Donor Name": donor[j].name},
-                            ];
-        
-                            let data = Object.keys(match[0]);
-                            if (initialTableGeneration){
-                                generateTableHead(table, data);
-                                initialTableGeneration = false;
+    
+            console.log(donor);
+    
+            let initialTableGeneration = true;
+    
+            // Loop through all patients
+            for (let i = 0; i < patientCount; i++) {
+                let patientData = await this.contractInstance.methods.getPatient(patientIDs[i]).call();
+                let patientname = patientData[0];
+                let patientbloodtype = patientData[3];
+                let patientorgans = patientData[4] || []; // default to empty array if no organs
+                
+                console.log("Checking patient: " + patientname);
+    
+                // Loop through all patient's organs
+                for (let poi = 0; poi < patientorgans.length; poi++) {
+                    console.log("Checking patient organ: " + patientorgans[poi]);
+    
+                    // Loop through all donors
+                    for (let j = 0; j < donorCount; j++) {
+                        let matchedOrgan = false;
+                        console.log("Checking donor: " + donor[j].name);
+                        console.log("Organ count: " + donor[j].organcount);
+    
+                        // Loop through all donor's organs
+                        for (let doi = 0; doi < donor[j].organcount; doi++) {
+                            console.log("Checking donor organ: " + donor[j].organs[doi]);
+    
+                            // Matching logic based on blood type and organ type
+                            if (patientbloodtype === donor[j].bloodtype && patientorgans[poi] === donor[j].organs[doi]) {
+                                matchedOrgan = true;
+                                console.log("Matched: " + patientname + " " + patientorgans[poi] + " <-> " + donor[j].name + " " + donor[j].organs[doi]);
+    
+                                // Prepare data for the table
+                                let match = [
+                                    {
+                                        "Patient Name": patientname,
+                                        "Patient Organ": patientorgans[poi],
+                                        "Patient Medical ID": patientIDs[i],
+                                        "": "↔️",
+                                        "Donor Medical ID": donorIDs[j],
+                                        "Donor Organ": donor[j].organs[doi],
+                                        "Donor Name": donor[j].name
+                                    }
+                                ];
+    
+                                let data = Object.keys(match[0]);
+                                if (initialTableGeneration) {
+                                    generateTableHead(table, data);
+                                    initialTableGeneration = false;
+                                }
+                                generateTable(table, match);
+    
+                                // Remove matched organ from donor's list
+                                donor[j].organs[doi] = donor[j].organs[donor[j].organcount - 1];
+                                donor[j].organs.pop();
+                                donor[j].organcount--;
+    
+                                // If no more organs are available for the donor, remove donor from list
+                                if (donor[j].organcount === 0) {
+                                    donor.splice(j, 1);  // Remove donor
+                                    donorCount--;  // Decrement donor count
+                                    j--;  // Adjust index after removal
+                                }
+    
+                                break;
                             }
-                            generateTable(table, match);
-                            
-                            // Removing marked donor organ
-                            donor[j].organs[doi] = donor[j].organs[donor[j].organcount-1];
-                            donor[j].organs.pop();
-                            donor[j].organcount--;
-                            break;
+                        }
+    
+                        if (matchedOrgan) {
+                            break; // Break from donor loop if organ matched
                         }
                     }
-                    if (donor[j].organcount == 0) {
-                        donor[j] = donor[donorCount-1];
-                        donorCount--;
-                    }
-                    if (matchedOrgan) {
-                        break;
-                    }
                 }
             }
+        } catch (error) {
+            console.error("Error occurred while matching transplant:", error);
         }
+    
         const spinner = document.querySelector(".spinner");
         spinner.style.display = "none";
     }
+    
 
 }
 
