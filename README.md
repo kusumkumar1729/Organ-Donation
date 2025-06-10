@@ -7,7 +7,7 @@ The Organ Donation dApp is a decentralized application built on the Ethereum blo
 
 ### Landing Page
 
-![Landing Page](app/src/screenshots/landing-page.png)
+![Landing Page](Organ-Donation/screenshots/landing-page.png)
 
 ### Dashboard
 
