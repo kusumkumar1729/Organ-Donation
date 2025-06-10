@@ -15,7 +15,7 @@ The Organ Donation dApp is a decentralized application built on the Ethereum blo
 
 ### Transplant Matching
 
-![Transplant Matching Page](screenshots/)
+![Transplant Matching Page](screenshots/transplant-match.jpg)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
